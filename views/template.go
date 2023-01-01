@@ -1,7 +1,6 @@
 package views
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -22,15 +21,23 @@ func (t Template) Execute(w http.ResponseWriter, data interface{}) {
 	}
 }
 
-func Parse(filepath string) (Template, error) {
+func Parse(filepath string) Template {
 	tpl, err := template.ParseFiles(filepath)
 	if err != nil {
-		return Template{}, fmt.Errorf("Parsing template: %w", err)
+		panic(err)
 	}
 
 	temp := Template{
 		htmlTemp: tpl,
 	}
 
-	return temp, nil
+	return temp
 }
+
+/*func Must(t Template, err error) Template {
+	if err != nil {
+		panic(err)
+	}
+
+	return t
+}*/

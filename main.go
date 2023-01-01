@@ -18,22 +18,13 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	tpl, err := views.Parse(filepath.Join("templates", "home.gohtml"))
-	if err != nil {
-		log.Printf("Parsing Home Page: %v", err)
-	}
+	tpl := views.Parse(filepath.Join("templates", "home.gohtml"))
 	r.Get("/", controllers.StaticHandler(tpl))
 
-	tpl, err = views.Parse(filepath.Join("templates", "contact.gohtml"))
-	if err != nil {
-		log.Printf("Parsing Home Page: %v", err)
-	}
+	tpl = views.Parse(filepath.Join("templates", "contact.gohtml"))
 	r.Get("/contact", controllers.StaticHandler(tpl))
 
-	tpl, err = views.Parse(filepath.Join("templates", "faq.gohtml"))
-	if err != nil {
-		log.Printf("Parsing Home Page: %v", err)
-	}
+	tpl = views.Parse(filepath.Join("templates", "faq.gohtml"))
 	r.Get("/faq", controllers.StaticHandler(tpl))
 
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
