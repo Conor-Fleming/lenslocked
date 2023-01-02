@@ -18,14 +18,14 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	tpl := views.Parse(templates.FS, "home.gohtml")
-	r.Get("/", controllers.StaticHandler(tpl))
+	tmpl := views.Parse(templates.FS, "home.gohtml", "contact.gohtml", "faq.gohtml")
+	r.Get("/", controllers.StaticHandler(tmpl))
 
-	tpl = views.Parse(templates.FS, "contact.gohtml")
-	r.Get("/contact", controllers.StaticHandler(tpl))
+	tmpl = views.Parse(templates.FS, "contact.gohtml")
+	r.Get("/contact", controllers.StaticHandler(tmpl))
 
-	tpl = views.Parse(templates.FS, "faq.gohtml")
-	r.Get("/faq", controllers.StaticHandler(tpl))
+	tmpl = views.Parse(templates.FS, "faq.gohtml")
+	r.Get("/faq", controllers.FAQ(tmpl))
 
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Page not found", http.StatusNotFound)

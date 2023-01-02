@@ -22,8 +22,8 @@ func (t Template) Execute(w http.ResponseWriter, data interface{}) {
 	}
 }
 
-func Parse(fs fs.FS, tmplName string) Template {
-	tmpl, err := template.ParseFS(fs, tmplName)
+func Parse(fs fs.FS, tmplName ...string) Template {
+	tmpl, err := template.ParseFS(fs, tmplName...)
 	//if the gohtml template cannot be parsed, panic
 	if err != nil {
 		panic(err)

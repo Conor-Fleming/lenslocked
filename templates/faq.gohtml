@@ -1,19 +1,10 @@
-<head>
-		<title>FAQ Page</title>
-	</head>
-  	<body>
-        <h1>Frequently Asked Questions</h1>
-        <ul>
-            <h2>What is this website about?</h2>
-            <p>This website is about providing information and resources on a variety of topics.</p>
-    
-            <h2>How can I contact the website owner?</h2>
-            <p>You can contact the website owner by sending an email to info@example.com.</p>
-    
-            <h2>Can I make suggestions for new content on the website?</h2>
-            <p>Yes, you can send your suggestions to info@example.com. We welcome feedback and new ideas for content.</p>
-    
-            <h2>Is this website free to use?</h2>
-            <p>Yes, this website is free to use for all visitors.</p>
-        </ul>
-  </body>
+<h1>Frequently Asked Questions</h1>
+<ul>
+    {{range .}}
+      {{template "Q&A" .}}
+    {{end}}
+</ul>
+
+{{define "Q&A"}}
+<li><b>{{.Question}}</b> <br>{{.Answer}}<br><br></li>
+{{end}}
