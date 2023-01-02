@@ -2,6 +2,7 @@ package views
 
 import (
 	"html/template"
+	"io/fs"
 	"log"
 	"net/http"
 )
@@ -21,23 +22,16 @@ func (t Template) Execute(w http.ResponseWriter, data interface{}) {
 	}
 }
 
-func Parse(filepath string) Template {
-	tpl, err := template.ParseFiles(filepath)
+func Parse(fs fs.FS, tmplName string) Template {
+	tmpl, err := template.ParseFS(fs, tmplName)
+	//if the gohtml template cannot be parsed, panic
 	if err != nil {
 		panic(err)
 	}
 
 	temp := Template{
-		htmlTemp: tpl,
+		htmlTemp: tmpl,
 	}
 
 	return temp
 }
-
-/*func Must(t Template, err error) Template {
-	if err != nil {
-		panic(err)
-	}
-
-	return t
-}*/
