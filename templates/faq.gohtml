@@ -1,9 +1,11 @@
+{{template "header" .}}
 <h1>Frequently Asked Questions</h1>
 <ul>
     {{range .}}
       {{template "Q&A" .}}
     {{end}}
 </ul>
+{{template "footer" .}}
 
 {{define "Q&A"}}
 <li><b>{{.Question}}</b> <br>{{.Answer}}<br><br></li>
