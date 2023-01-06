@@ -27,8 +27,9 @@ func main() {
 	faqTmpl := views.Parse(templates.FS, "faq.gohtml", "tailwind.gohtml")
 	r.Get("/faq", controllers.FAQ(faqTmpl))
 
-	signupTmpl := views.Parse(templates.FS, "signup.gohtml", "tailwind.gohtml")
-	r.Get("/signup", controllers.StaticHandler(signupTmpl))
+	var user controllers.Users
+	user.Templates.New = views.Parse(templates.FS, "signup.gohtml", "tailwind.gohtml")
+	r.Get("/signup", user.New)
 
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Page not found", http.StatusNotFound)
