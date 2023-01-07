@@ -3,8 +3,6 @@ package controllers
 import (
 	"html/template"
 	"net/http"
-
-	"github.com/Conor-Fleming/lenslocked/views"
 )
 
 type Static struct {
@@ -15,13 +13,13 @@ func (s Static) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	s.Template.Execute(w, nil)
 }
 
-func StaticHandler(tmpl views.Template) http.HandlerFunc {
+func StaticHandler(tmpl Executer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		tmpl.Execute(w, nil)
 	}
 }
 
-func FAQ(tmpl views.Template) http.HandlerFunc {
+func FAQ(tmpl Executer) http.HandlerFunc {
 	questions := []struct {
 		Question string
 		Answer   template.HTML

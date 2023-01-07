@@ -29,7 +29,8 @@ func main() {
 
 	var user controllers.Users
 	user.Templates.New = views.Parse(templates.FS, "signup.gohtml", "tailwind.gohtml")
-	r.Get("/signup", user.New)
+	r.Get("/users", user.New)
+	r.Post("/users", user.Create)
 
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Page not found", http.StatusNotFound)
