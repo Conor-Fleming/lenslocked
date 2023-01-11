@@ -18,20 +18,25 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
+	//Home
 	homeTmpl := views.Parse(templates.FS, "home.gohtml", "tailwind.gohtml")
 	r.Get("/", controllers.StaticHandler(homeTmpl))
 
+	//Contact
 	contactTmpl := views.Parse(templates.FS, "contact.gohtml", "tailwind.gohtml")
 	r.Get("/contact", controllers.StaticHandler(contactTmpl))
 
+	//FAQ
 	faqTmpl := views.Parse(templates.FS, "faq.gohtml", "tailwind.gohtml")
 	r.Get("/faq", controllers.FAQ(faqTmpl))
 
+	//Sign Up
 	var user controllers.Users
 	user.Templates.New = views.Parse(templates.FS, "signup.gohtml", "tailwind.gohtml")
 	r.Get("/users", user.New)
 	r.Post("/users", user.Create)
 
+	//Page not found
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Page not found", http.StatusNotFound)
 	})
